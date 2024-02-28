@@ -7,14 +7,15 @@ import (
 )
 
 type Post struct {
-	Id            uuid.UUID `column:"id";json:"id";primaryKey:"true";default:"uuid_generate_v4()"`
-	AuthorId      uuid.UUID `column:"author_id";json:"author_id"`
-	CategoryId    uuid.UUID `column:"category_id";json:"category_id"`
-	Title         string    `column:"title";json:"title"`
-	SeoTitle      string    `column:"seo_title";json:"seo_title"`
-	ImageUrl      string    `column:"image_url";json:"image_url"`
-	Content       string    `column:"content";json:"content"`
-	IsPublished   bool      `column:"is_published";json:"is_published"`
-	PublishedDate time.Time `column:"published_date";json:"published_date"`
-	CreatedAt     time.Time `column:"created_at";json:"created_at";default:"now()"`
+	ID            uuid.UUID `gorm:"column:id;type:uuid;primaryKey:true;default:uuid_generate_v4();not null:true;" json:"id"`
+	AuthorId      uuid.UUID `gorm:"column:author_id;type:uuid;not null:true;" json:"author_id"`
+	CategoryId    uuid.UUID `gorm:"column:category_id;type:uuid;not null:true;" json:"category_id"`
+	Title         string    `gorm:"column:title;type:varchar(255);not null:true;" json:"title"`
+	SeoTitle      string    `gorm:"column:seo_title;type:varchar(255);not null:true;" json:"seo_title"`
+	ImageUrl      string    `gorm:"column:image_url;type:varchar(255);not null:true;" json:"image_url"`
+	Content       string    `gorm:"column:content;type:text;not null:true;" json:"content"`
+	IsPublished   bool      `gorm:"column:is_published;type:boolean;not null:true;" json:"is_published"`
+	PublishedDate time.Time `gorm:"column:published_date;type:timestamp;not null:true;" json:"published_date"`
+	Category      `gorm:"foreignKey:CategoryId;references:ID" json:"category"`
+	BaseModel
 }
