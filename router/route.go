@@ -16,6 +16,10 @@ func Init(init *config.Initialization) *gin.Engine {
 	{
 		categories := api.Group("/categories")
 		categories.GET("", init.CategoryController.GetCategories)
+		categories.POST("", init.CategoryController.CreateCategory)
+		categories.GET("/:id", init.CategoryController.GetCategoryById)
+		categories.PUT("/:id", init.CategoryController.UpdateCategory)
+		categories.DELETE("/:id", init.CategoryController.DeleteCategory)
 	}
 
 	return router
