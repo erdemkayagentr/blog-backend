@@ -15,7 +15,6 @@ type CategoryRepository interface {
 	UpdateCategory(category *entities.Category) (entities.Category, error)
 	DeleteCategory(id uuid.UUID) error
 }
-
 type CategoryRepositoryImpl struct {
 	db *gorm.DB
 }
